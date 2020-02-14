@@ -1,0 +1,47 @@
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class ExamTwo {
+    public static void main(String[] args) {
+
+
+        Scanner scanner = new Scanner(System.in);
+        String namesRegex = "^(U\\$)([A-Z][a-z]{2,})(U\\$)P(\\@\\$)([\\w]{5,}\\d)(P\\@\\$)$";
+
+
+        Pattern namesPattern = Pattern.compile(namesRegex);
+        int count=Integer.parseInt(scanner.nextLine());
+        int times=0;
+
+
+        String input;
+        for (int i = 0; i <count; i++) {
+            input=scanner.nextLine();
+
+            Matcher nameMatcher = namesPattern.matcher(input);
+
+
+            if (nameMatcher.find()) {
+                times++;
+
+                System.out.println("Registration was successful");
+                System.out.printf("Username: %s, Password: %s%n", nameMatcher.group(2), nameMatcher.group(5));
+
+
+            }
+
+
+            // System.out.printf("%s: %d %d %d %n", tag, (int) sym1.charAt(0), (int) sym2.charAt(0), (int) sym3.charAt(0));
+
+            else {
+                System.out.println("Invalid username or password");
+            }
+
+
+        }
+        System.out.println("Successful registrations: "+times);
+    }
+}
+
+
