@@ -1,0 +1,65 @@
+import java.util.Scanner;
+
+public class ExamOne {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+
+        String string = scanner.nextLine();
+
+        String comand;
+        while (!(comand = scanner.nextLine()).equals("Complete")) {
+            String[] comandParts = comand.split("\\s+");
+            String comandType = comandParts[0];
+            switch (comandType) {
+                case "Replace":
+                    string = string.replace(comandParts[1], "-");
+                    System.out.println(string);
+                    break;
+                case "GetUsername":
+                    if (string.contains("@")) {
+                        int index = string.indexOf("@");
+                        System.out.println(string.substring(0, index));
+                    } else
+                        System.out.println("The email " + string + " doesn't contain the @ symbol.");
+                    break;
+                case "Encrypt":
+                        char []stri=string.toCharArray();
+                    for (int i = 0; i < stri.length; i++) {
+                        char what=stri[i];
+                        int count=what;
+                        System.out.printf("%d ",count);
+                    }
+
+
+
+                    break;
+                case "Make":
+                    if (comandParts[1].equals("Upper")) {
+                        string = string.toUpperCase();
+                        System.out.println(string);
+                    } else {
+                        string = string.toLowerCase();
+                        System.out.println(string);
+                    }
+
+                    break;
+                case "GetDomain":
+
+                    int index=Integer.parseInt(comandParts[1]);
+                    int lenght = string.length();
+                    System.out.println(string.substring(lenght-index, lenght));
+
+
+                    break;
+
+                default:
+                    throw new IllegalStateException("can't parse comand" + comand + "(" + comandType + ")");
+            }
+
+
+        }
+
+
+    }
+}
