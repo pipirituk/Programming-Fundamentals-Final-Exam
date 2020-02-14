@@ -1,0 +1,59 @@
+import java.util.*;
+
+public class ExamTree {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Map<String, List<String>> userName = new TreeMap<>();
+        Map<String, Integer> groupTime = new LinkedHashMap<>();
+        int totalTime = 0;
+
+        String input;
+        while (!"Statistics".equals(input = scanner.nextLine())) {
+            String[] comands = input.split("->");
+            String command = comands[0];
+            String user = comands[1];
+
+            switch (command) {
+                case "Add":
+                    if (!userName.containsKey(user)) {
+
+                        userName.put(user, new LinkedList<>());
+
+                    } else {
+                        System.out.println(user + " is already registered");
+
+                    }
+
+                    break;
+                case "Send":
+                    String mails = comands[2];
+                    userName.get(user).add(mails);
+
+                    break;
+                case "Delete":
+                    if (userName.containsKey(user)) {
+
+                        userName.remove(user);
+                    } else {
+                        System.out.println(user + " not found!");
+                    }
+                    break;
+            }
+        }
+        System.out.println("Users count: " + userName.size());
+
+        userName
+                .entrySet()
+                .stream()
+                .sorted((a, b) -> b.getValue().size() - a.getValue().size())
+                .forEach(entry -> {
+                    System.out.printf("%s %n", entry.getKey());
+                    entry
+                            .getValue()
+                            .stream()
+                            .forEach(s -> System.out.println(" - " + s));
+
+                });
+
+    }
+}
